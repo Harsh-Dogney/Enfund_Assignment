@@ -1,0 +1,134 @@
+{
+    "info": {
+      "_postman_id": "a0f9fdee-f6ef-4e77-9c9d-4b2c25b2e78a",
+      "name": "OAuth2 + Drive + Chat - Assignment",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Initiate Google OAuth",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:8000/auth/google/login/",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": ["auth", "google", "login", ""]
+          },
+          "description": "This route initiates the Google OAuth 2.0 flow. It redirects the user to Google for authentication."
+        }
+      },
+      {
+        "name": "Google OAuth Callback",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:8000/auth/google/callback/?code=YOUR_CODE_HERE",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": ["auth", "google", "callback", ""],
+            "query": [
+              {
+                "key": "code",
+                "value": "YOUR_CODE_HERE"
+              }
+            ]
+          },
+          "description": "Google redirects to this route after login. Replace 'YOUR_CODE_HERE' with the code from Google redirect URL."
+        }
+      },
+      {
+        "name": "☁️ Upload File to Google Drive",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer YOUR_ACCESS_TOKEN",
+              "type": "text"
+            }
+          ],
+          "body": {
+            "mode": "formdata",
+            "formdata": [
+              {
+                "key": "file",
+                "type": "file",
+                "src": ""
+              }
+            ]
+          },
+          "url": {
+            "raw": "http://localhost:8000/auth/google/upload/",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": ["auth", "google", "upload", ""]
+          },
+          "description": "Uploads a file to the authenticated user's Google Drive. Add your access token and choose a file."
+        }
+      },
+      {
+        "name": "List Google Drive Files",
+        "request": {
+          "method": "GET",
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer YOUR_ACCESS_TOKEN",
+              "type": "text"
+            }
+          ],
+          "url": {
+            "raw": "http://localhost:8000/auth/google/files/",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": ["auth", "google", "files", ""]
+          },
+          "description": "Fetches a list of files from the user's Google Drive. Requires a valid access token."
+        }
+      },
+      {
+        "name": "Download File from Drive",
+        "request": {
+          "method": "GET",
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer YOUR_ACCESS_TOKEN",
+              "type": "text"
+            }
+          ],
+          "url": {
+            "raw": "http://localhost:8000/auth/google/download/YOUR_FILE_ID/",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": ["auth", "google", "download", "YOUR_FILE_ID", ""]
+          },
+          "description": "Downloads a file from Google Drive to local server. Replace 'YOUR_FILE_ID' with actual Drive file ID."
+        }
+      },
+      {
+        "name": "Google Picker UI (Browser Only)",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:8000/auth/google/picker/",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "8000",
+            "path": ["auth", "google", "picker", ""]
+          },
+          "description": "Opens the Google Picker UI for selecting files directly from Drive. Use this in the browser only."
+        }
+      }
+    ]
+  }
+  

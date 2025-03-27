@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Room</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+        }
+        #sidebar {
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        #sidebar h3 {
+            margin-top: 0;
+        }
+        .user {
+            cursor: pointer;
+            padding: 5px;
+            border-bottom: 1px solid #555;
+        }
+        .user:hover {
+            background-color: #444;
+        }
+        #main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+        #chat-header {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        #chat-log {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+        .message {
+            margin: 5px 0;
+        }
+        .meta {
+            font-size: 0.8em;
+            color: gray;
+        }
+        #chat-input {
+            display: flex;
+            margin-top: 10px;
+        }
+        #chat-message-input {
+            flex: 1;
+            padding: 8px;
+        }
+        #chat-message-submit {
+            padding: 8px 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <h3>Users</h3>
+        {% comment %} Dynamically render users from backend later {% endcomment %}
+        <div class="user" onclick="joinRoom('global')">🌐 Global</div>
+        {% for user in users %}
+            {% if user.username != request.user.username %}
+                <div class="user" onclick="joinRoom('{{ user.username }}')">{{ user.username }}</div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div id="main">
+        <div id="chat-header">Chatting in: <span id="room-name">global</span></div>
+        <div id="chat-log"></div>
+        <div id="chat-input">
+            <input id="chat-message-input" type="text" placeholder="Type a message..." autocomplete="off">
+            <button id="chat-message-submit">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const username = "{{ request.user.username }}";
+        let currentRoom = "global";
+        let chatSocket;
+
+        function connectWebSocket(room) {
+            if (chatSocket) {
+                chatSocket.close();
+            }
+
+            chatSocket = new WebSocket(
+                'ws://' + window.location.host + '/ws/chat/' + room + '/'
+            );
+
+            chatSocket.onmessage = function(e) {
+                const data = JSON.parse(e.data);
+                const messageElement = document.createElement('div');
+                messageElement.className = 'message';
+                const timestamp = new Date().toLocaleTimeString();
+                messageElement.innerHTML = `<span class="meta">[${timestamp}] ${data.username}:</span> ${data.message}`;
+                const chatLog = document.querySelector('#chat-log');
+                chatLog.appendChild(messageElement);
+                chatLog.scrollTop = chatLog.scrollHeight;
+            };
+
+            chatSocket.onclose = function(e) {
+                setTimeout(() => connectWebSocket(room), 3000);
+            };
+
+            chatSocket.onerror = function(e) {
+                console.error("WebSocket error:", e);
+                chatSocket.close();
+            };
+        }
+
+        function joinRoom(room) {
+            currentRoom = room;
+            document.getElementById('chat-log').innerHTML = '';
+            document.getElementById('room-name').textContent = room;
+            connectWebSocket(room);
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('chat-message-input');
+            const message = messageInput.value.trim();
+            if (message === '') return;
+
+            chatSocket.send(JSON.stringify({
+                message: message,
+                username: username
+            }));
+            messageInput.value = '';
+        }
+
+        document.getElementById('chat-message-submit').onclick = sendMessage;
+
+        document.getElementById('chat-message-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Start in global room
+        connectWebSocket('global');
+    </script>
+</body>
+</html>
