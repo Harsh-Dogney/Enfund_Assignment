@@ -4,16 +4,10 @@
 
 Welcome to the **Enfund Assignment** repository! This project is a full-stack web application built with **Django** that features:
 
-- 🔐 Google OAuth 2.0 Authentication
-- 📂 Google Drive Integration (Picker API + Drive API)
-- 💬 Real-time WebSocket Chat
-- 🧑‍🤝‍🧑 One-to-One Private Messaging
-
----
-
-## 🧠 Overview
-
-This application is designed to showcase integration with **Google APIs** for file management and implement real-time communication using **WebSockets**. It demonstrates practical use of third-party APIs, authentication mechanisms, and interactive frontend/backend sync using Django Channels.
+- 🔐 Google OAuth 2.0 Authentication  
+- 📂 Google Drive Integration (Picker API + Drive API)  
+- 💬 Real-time WebSocket Chat  
+- 🧑‍🤝‍🧑 One-to-One Private Messaging  
 
 ---
 
@@ -38,14 +32,13 @@ This application is designed to showcase integration with **Google APIs** for fi
 
 ## 🏗️ Tech Stack
 
-| Technology | Description |
-|------------|-------------|
-| **Django** | Backend web framework |
-| **Django Channels** | WebSocket support for real-time communication |
-| **Google APIs** | OAuth 2.0, Picker API, Drive API |
-| **HTML/CSS/JS** | Frontend UI |
-| **WebSockets** | Real-time messaging |
-
+| Technology         | Description                              |
+|--------------------|------------------------------------------|
+| **Django**         | Backend web framework                    |
+| **Django Channels**| WebSocket support for real-time messaging|
+| **Google APIs**    | OAuth 2.0, Picker API, Drive API         |
+| **HTML/CSS/JS**    | Frontend UI                              |
+| **WebSockets**     | Real-time communication                  |
 
 ---
 
@@ -112,30 +105,22 @@ Enfund_Assignment/
 ## 🔐 Google Picker Integration Guide
 
 To use Google Picker:
-1. Log in using Google
-2. Click **"Upload to Drive"** or **"Select File"**
-3. Picker UI will open → choose file → upload/download automatically handled
-4. Files are also listed on the "Drive Files" page using the Drive API
+1. Log in using Google  
+2. Click **"Upload to Drive"** or **"Select File"**  
+3. Picker UI will open → choose file → upload/download automatically handled  
+4. Files are also listed on the "Drive Files" page using the Drive API  
 
 ---
 
 ## 💬 Chat Instructions
 
-1. Go to `/chat/`
-2. Use the **sidebar** to select users for one-on-one chat
-3. Messages appear in real time using Django Channels (WebSockets)
+1. Go to `/chat/`  
+2. Messages appear in real time using Django Channels (WebSockets)  
 
 ---
 
 ## 🧪 Testing
 
->  Postman collection available for reference 
+> Postman collection available for reference  
 
 ---
-
-## 🙌 Acknowledgements
-
-- [Google Developer Console](https://console.cloud.google.com/)
-- [Django Channels Docs](https://channels.readthedocs.io/)
-- [Google Picker API Guide](https://developers.google.com/picker)
-
