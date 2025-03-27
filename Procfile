@@ -1,1 +1,2 @@
-web: daphne Enfund_Assignment.asgi:application
+web: daphne -b 0.0.0.0 -p $PORT assignment.asgi:application
+
