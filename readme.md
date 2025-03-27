@@ -1,6 +1,3 @@
-Here's a detailed and interactive `README.md` tailored for your [Enfund Assignment](https://github.com/Harsh-Dogney/Enfund_Assignment) project. This README assumes that the project includes authentication with Google OAuth, file upload via Google Picker API, listing files from Google Drive, and a real-time chat feature using WebSockets — based on our previous conversations.
-
----
 
 ```markdown
 # 🚀 Enfund Assignment
@@ -39,16 +36,6 @@ This application is designed to showcase integration with **Google APIs** for fi
 
 ---
 
-## 📸 Demo
-
-> _You can include a demo video or screenshots here._
-
-![Login Page](screenshots/login.png)
-![Google Picker](screenshots/google-picker.png)
-![Chat Interface](screenshots/chat.png)
-
----
-
 ## 🏗️ Tech Stack
 
 | Technology | Description |
@@ -58,7 +45,7 @@ This application is designed to showcase integration with **Google APIs** for fi
 | **Google APIs** | OAuth 2.0, Picker API, Drive API |
 | **HTML/CSS/JS** | Frontend UI |
 | **WebSockets** | Real-time messaging |
-| **SQLite** | Default development database |
+
 
 ---
 
@@ -142,7 +129,7 @@ To use Google Picker:
 
 ## 🧪 Testing
 
-> (Optional - include test commands if available)
+>  Postman collection available for reference 
 
 ---
 
@@ -152,29 +139,3 @@ To use Google Picker:
 - [Django Channels Docs](https://channels.readthedocs.io/)
 - [Google Picker API Guide](https://developers.google.com/picker)
 
----
-
-## 📬 Contact
-
-Feel free to reach out if you have questions or suggestions!
-
-**Author**: Harsh Dogney  
-**LinkedIn**: [linkedin.com/in/harsh-dogney](https://www.linkedin.com/in/harsh-dogney/)  
-**Email**: harshdogney@gmail.com
-
----
-
-## ⭐️ Show your Support
-
-If you found this project helpful, please consider ⭐️ starring the repo and sharing it with others!
-
-```
-
----
-
-Let me know if you'd like to:
-- Add badges (build status, license, etc.)
-- Include a demo deployment (e.g., via Render or Railway)
-- Convert it into a `README.md` file directly for push  
-
-Want me to create and push this to your GitHub repo directly?
