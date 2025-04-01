@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block title %}Google Drive Integration{% endblock %}
@@ -22,33 +23,55 @@
     .file-item:last-child {
         border-bottom: none;
     }
+    .custom-btn {
+        font-weight: 600;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 180px;
+        height: 50px;
+    }
+    body {
+        background: lightyellow;
+        font-family: 'Segoe UI', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+      
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="mb-4">
+<div class="body">
+<div class="mb-4 ">
     <h3>Welcome, {{ user_email }}!</h3>
     <p>You are now connected to your Google Drive. Choose an option below:</p>
 </div>
 
-<div class="row mb-4">
-    <div class="col-md-6">
-        <button id="pickFiles" class="btn btn-primary w-100 mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder me-2" viewBox="0 0 16 16">
-                <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z"/>
-            </svg>
-            Browse My Drive
-        </button>
+<div class="row mb-4 justify-content-center">
+    <div class="col-md-6 d-flex justify-content-center">
+      <button id="pickFiles" class="btn btn-primary custom-btn me-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul me-2" viewBox="0 0 16 16">
+          <path d="..." />
+        </svg>
+        Pick Files
+      </button>
+  
+      <button id="listFiles" class="btn btn-primary custom-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul me-2" viewBox="0 0 16 16">
+          <path d="..." />
+        </svg>
+        List My Files
+      </button>
     </div>
-    <div class="col-md-6">
-        <button id="listFiles" class="btn btn-outline-primary w-100 mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul me-2" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-            </svg>
-            List My Files
-        </button>
-    </div>
-</div>
+  </div>
+ </div> 
 
 <div id="fileList" class="file-list d-none">
     <div class="text-center py-3" id="loading">
@@ -65,6 +88,7 @@
     <div id="pickedFilesList"></div>
 </div>
 
+</div>
 <!-- Hidden field to store the access token -->
 <input type="hidden" id="accessToken" value="{{ access_token }}">
 {% endblock %}
@@ -216,93 +240,4 @@
         });
     });
 </script>
-{% endblock %} 
-
-{% comment %} {% extends "base.html" %}
-{% block title %}Drive{% endblock %}
-
-{% block extra_head %}
-<style>
-    .file-list {
-        max-height: 400px;
-        overflow-y: auto;
-        border: 1px solid #dee2e6;
-        border-radius: 10px;
-        padding: 15px;
-        background-color: #f8f9fa;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    }
-    .file-item {
-        padding: 12px 15px;
-        margin-bottom: 10px;
-        border-radius: 8px;
-        background: #fff;
-        border: 1px solid #e0e0e0;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: background 0.2s ease;
-    }
-    .file-item:hover {
-        background-color: #f1f1f1;
-    }
-    h3, h4 {
-        font-weight: 600;
-        margin-bottom: 1rem;
-    }
-    .btn {
-        transition: all 0.2s ease;
-    }
-    .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
-    }
-</style>
 {% endblock %}
-
-{% block content %}
-<div class="container mt-4">
-    <div class="card shadow-sm border-0">
-        <div class="card-body">
-            <h3 class="mb-3 text-primary">Welcome, {{ user_email }}!</h3>
-            <p class="text-muted">You are now connected to your Google Drive. Choose an option below:</p>
-
-            <div class="row my-4">
-                <div class="col-md-6">
-                    <button id="pickFiles" class="btn btn-primary w-100 mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-folder2-open me-2" viewBox="0 0 16 16">
-                            <path d="M13.81 4H8.707l-.853-.854A.5.5 0 0 0 7.5 3H2.19a.5.5 0 0 0-.485.379L.025 9.68a.5.5 0 0 0 .485.621h12.29a.5.5 0 0 0 .485-.379l1.68-6.302A.5.5 0 0 0 14.81 4z"/>
-                        </svg>
-                        Browse My Drive
-                    </button>
-                </div>
-                <div class="col-md-6">
-                    <button id="listFiles" class="btn btn-outline-primary w-100 mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-card-list me-2" viewBox="0 0 16 16">
-                            <path d="M14.5 2a.5.5 0 0 1 .5.5v11a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 2.5v11A1.5 1.5 0 0 0 1.5 15h13a1.5 1.5 0 0 0 1.5-1.5v-11A1.5 1.5 0 0 0 14.5 1h-13z"/>
-                            <path d="M5 5.5a.5.5 0 0 1 .5-.5H13a.5.5 0 0 1 0 1H5.5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5H13a.5.5 0 0 1 0 1H5.5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5H13a.5.5 0 0 1 0 1H5.5a.5.5 0 0 1-.5-.5zm-2.354-3.646a.5.5 0 1 1 .708.708l-1 1a.5.5 0 1 1-.708-.708l1-1zm0 2a.5.5 0 1 1 .708.708l-1 1a.5.5 0 1 1-.708-.708l1-1zm0 2a.5.5 0 1 1 .708.708l-1 1a.5.5 0 1 1-.708-.708l1-1z"/>
-                        </svg>
-                        List My Files
-                    </button>
-                </div>
-            </div>
-
-            <div id="fileList" class="file-list d-none">
-                <div class="text-center py-3" id="loading">
-                    <div class="spinner-border text-primary" role="status"></div>
-                    <p class="text-muted mt-2">Loading your files...</p>
-                </div>
-                <div id="fileItems"></div>
-            </div>
-
-            <div id="pickedFiles" class="mt-4 d-none">
-                <h4 class="text-success">Selected Files</h4>
-                <div id="pickedFilesList"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<input type="hidden" id="accessToken" value="{{ access_token }}">
-{% endblock %} {% endcomment %}

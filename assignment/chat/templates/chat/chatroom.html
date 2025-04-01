@@ -67,7 +67,6 @@
 <body>
     <div id="sidebar">
         <h3>Users</h3>
-        {% comment %} Dynamically render users from backend later {% endcomment %}
         <div class="user" onclick="joinRoom('global')">🌐 Global</div>
         {% for user in users %}
             {% if user.username != request.user.username %}
